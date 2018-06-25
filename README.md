@@ -1,6 +1,6 @@
 # Binary-Trees-Compression
 
-Task is written in Polish.  
+Partly in Polish.  
 
 ## Zadanie domowe – kompresja drzew binarnych  
 
