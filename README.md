@@ -1,4 +1,4 @@
-## Kompresja-drzew
+## Binary-Trees-Compression
 
 Task is written in Polish.  
 
