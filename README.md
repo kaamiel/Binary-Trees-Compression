@@ -9,19 +9,19 @@ kich wystąpień tego samego niepustego poddrzewa w jedno. Napisać program, kt�
 stową reprezentację drzewa binarnego liczb całkowitych większych od 0 i wypisze na wyjście reprezentację  
 wyniku jego kompresji.  
 
-#Postać danych
+# Postać danych
 
 Puste drzewo jest reprezentowane przez wiersz z liczbą 0 a drzewo niepuste przez ciąg wierszy, z których  
 pierwszy zawiera wartość korzenia, w kolejnych jest reprezentacja lewego a po niej prawego poddrzewa.  
 
-#Postać wyniku
+# Postać wyniku
 
 Wynik programu otrzymujemy z danych wejściowych zastępując drugie i każde kolejne wystąpienie ciągu  
 wierszy reprezentujących takie samo niepuste poddrzewo jednym wierszem. Umieszczamy w nim wartość  
 K − N , gdzie N to numer tego wiersza w tekście wynikowym a K to numer wiersza wyniku, w którym  
 zaczyna się reprezentacja pierwszego wystąpienia poddrzewa.  
 
-#Przykład
+# Przykład
 
 Dla danych (example/in.{png,txt}):  
 11  
