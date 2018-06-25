@@ -1,3 +1,5 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -13,23 +15,9 @@ public class Tree {
         this.right = right;
     }
 
-    public static Tree createFromList(List<String> list) {
-        if (list == null || list.isEmpty()) {
-            return null;
-        }
-
-        if (list.get(0).equals("0")) {
-            list.remove(0);
-            return null;
-        }
-
-        Tree tree = new Tree(Integer.parseInt(list.get(0)), null, null);
-        list.remove(0);
-
-        tree.left = createFromList(list);
-        tree.right = createFromList(list);
-
-        return tree;
+    @Override
+    public int hashCode() {
+        return this.value;
     }
 
     @Override
@@ -44,33 +32,47 @@ public class Tree {
         return "(" + this.value + " " + leftString + " " + rightString + ")";
     }
 
+    public static Tree createFromList(List<String> list) {
+        if (list == null || list.isEmpty()) {
+            return null;
+        }
 
-    public void write(HashMap<Tree, Integer> hashMap, AtomicInteger n) {
+        if (list.get(0).equals("0")) {
+            list.remove(0);
+            return null;
+        }
+
+        Tree tree = new Tree(Integer.parseInt(list.remove(0)), null, null);
+
+        tree.left = createFromList(list);
+        tree.right = createFromList(list);
+
+        return tree;
+    }
+
+    public void printAsList(FileWriter writer, HashMap<Tree, Integer> hashMap, AtomicInteger n) throws IOException {
         if (hashMap.containsKey(this)) {
-            System.out.println(hashMap.get(this) - n.get());
-            n.incrementAndGet();
+            writer.write(hashMap.get(this) - n.getAndIncrement() + "\n");
         }
         else {
-            System.out.println(this.value);
-            hashMap.put(this, n.get());
-            n.incrementAndGet();
+            writer.write(this.value + "\n");
+            hashMap.put(this, n.getAndIncrement());
 
             if (this.left == null) {
-                System.out.println("0");
+                writer.write("0\n");
                 n.incrementAndGet();
             } else {
-                this.left.write(hashMap, n);
+                this.left.printAsList(writer, hashMap, n);
             }
 
             if (this.right == null) {
-                System.out.println("0");
+                writer.write("0\n");
                 n.incrementAndGet();
             } else {
-                this.right.write(hashMap, n);
+                this.right.printAsList(writer, hashMap, n);
             }
         }
     }
-
 
     public static Tree compress(Tree tree, HashMap<String, Tree> hashMap) {
         if (tree == null) {
